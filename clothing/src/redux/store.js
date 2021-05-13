@@ -2,12 +2,15 @@
 // to root reducer.
 
 import { createStore, applyMiddleware } from "redux";
-import logger from "redux-logger";
+import logger from "redux-logger"; // for logging out the states as and when it changes
+import { persistStore } from "redux-persist"; // for localstorage and session storage
 
 import rootReducer from "./root-reducer";
 
 const middlewares = [logger];
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-export default store;
+export const persistor = persistStore(store);
+
+export default { store, persistor };
