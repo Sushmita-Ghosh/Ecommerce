@@ -13,6 +13,10 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 // helps us to use our reducers in the components
 import { connect } from "react-redux";
 
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+
 const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
@@ -42,9 +46,9 @@ const Header = ({ currentUser, hidden }) => (
 );
 
 // from the user destructed currentUser and from the cart we destructed the hidden
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
 export default connect(mapStateToProps)(Header);
